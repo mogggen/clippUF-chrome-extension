@@ -153,6 +153,8 @@ body {
   cursor: pointer;
   transition: all 0.15s ease;
   margin-bottom: 8px;
+  color: white;
+  font-family: inherit;
 }
 
 .coupon-card:hover {
