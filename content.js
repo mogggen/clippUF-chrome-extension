@@ -1,7 +1,7 @@
 
 const PREFIXES = [ "add", "aquired", "has", "have", "select", "pick", "choose", "redeem", "ange", "lös in", "mata in", "välj"];
     
-const POSTFIXES = [ "kampanj", "rabatt", "rebate", "vouche", "campaign", "coupon", "discount", "promo" ];
+const POSTFIXES = [ "kampanj", "rabatt", "rebate", "vouche", "campaign", "coupon", "discount", "kupong", "värde", "value", "promo" ];
 
 const my_event = function (event) {
     if (event.key === 'F2') do_func();
@@ -21,7 +21,7 @@ const collect_input_elements_without_zip_or_post_attrib = function () {
 const find_candidates = function () {
     INPUT_ELEMENTS = collect_input_elements_without_zip_or_post_attrib();
     let score = [];
-    const POSTFIX_PATTERN = /[^>]*\\b(${POSTFIXES.join("|")})\\b[^>]*/i;
+    const POSTFIX_PATTERN = /[^>]*(${POSTFIXES.join("|")})[^>]*/i;
     //const pattern = new RegExp(`<input\\b[^>]*\\b(${PREFIXES.join("|")})\\b[^>]*\\b(${POSTFIXES.join("|")})\\b[^>]*/>`, "i");
     // TODO: use the pattern to find candidates
     INPUT_ELEMENTS.forEach(el => {
@@ -41,7 +41,7 @@ const find_candidates = function () {
     if (score.length > 1) {
         score.forEach(el => {
             // TODO: see which one matches PREFIX before 
-            FULL_PATTERN = new RegExp(`<input\\b[^>]*\\b(${PREFIXES.join("|")})\\b[^>]*\\b(${POSTFIXES.join("|")})\\b[^>]*/>`, "i");
+            FULL_PATTERN = new RegExp(`<input[^>]*(${PREFIXES.join("|")})[^>]*(${POSTFIXES.join("|")})[^>]*/>`, "i");
             if (!FULL_PATTERN.test(el.outerHTML)) {
                 score.remove(el);
             }
@@ -66,10 +66,18 @@ const blink = function(coupon) {
     document.body.appendChild(STYLE_EL);
 }
 
-const do_func = function () {
+const do_func = function (code = "WELCOME20") {
     const COUPON_INPUT = find_candidates();
+    if (!COUPON_INPUT) return;
     //TODO make this be what it says in the popup
-    COUPON_INPUT.value = "WELCOME20";
+    COUPON_INPUT.value = code;
 
-    blink();
+    blink(COUPON_INPUT);
 }
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "applyCoupon") {
+        do_func(request.code);
+        sendResponse({ status: "success" });
+    }
+});
