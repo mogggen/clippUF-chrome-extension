@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="popup.css" />
+  <title>Clipp</title>
+</head>
+<body>
+  <div class="popup">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-logo">C</div>
+      <span class="header-title">Clipp</span>
+      <div class="header-flags">
+        <span class="flag active" title="Svenska">🇸🇪</span>
+        <span class="flag" title="English">🇬🇧</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Store Detection -->
+      <div class="store-detection">
+        <div class="store-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        </div>
+        <div class="store-info">
+          <p class="store-name" id="storeName">Söker butik...</p>
+          <p class="store-status" id="storeStatus">Kontrollerar aktuell sida</p>
+        </div>
+        <div class="store-indicator" id="storeIndicator"></div>
+      </div>
+
+      <!-- Coupons -->
+      <div class="coupons-section">
+        <p class="section-label">🏷️ Rabattkoder</p>
+        <div id="couponList"></div>
+      </div>
+
+      <!-- Apply Button -->
+      <button class="apply-btn" id="applyBtn" disabled>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        <span id="applyBtnText">Välj en rabattkod</span>
+      </button>
+
+      <!-- Add Code -->
+      <div class="add-section" id="addSection">
+        <button class="add-toggle" id="addToggle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          Lägg till egen kod
+        </button>
+        <div class="add-form hidden" id="addForm">
+          <p class="section-label">+ Lägg till egen kod</p>
+          <div class="add-row">
+            <input type="text" id="newCode" placeholder="RABATTKOD" class="input" />
+            <button class="btn-primary" id="addBtn" disabled>Lägg till</button>
+          </div>
+          <input type="text" id="newDesc" placeholder="Beskrivning (valfritt)" class="input" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
