@@ -33,13 +33,14 @@ const find_candidates = function () {
         return null;
     }
     if (score.length > 1) {
-        score.forEach(el => {
+        for (let index = score.length - 1; index >= 0; index--) {
+            const el = score[index];
             console.log("el.outerHTML: ", el.outerHTML); 
             const FULL_PATTERN = new RegExp(`[^>]*(${PREFIXES.join("|")})[^>]*(${POSTFIXES.join("|")})[^>]*/>`, "i");
             if (!FULL_PATTERN.test(el.outerHTML)) {
                 if (score.indexOf(el) !== -1) score.splice(score.indexOf(el), 1);
             }
-        });
+        };
         if (score.length === 1) return score[0];
         console.log("Found multiple coupon input fields!");
         return null;
