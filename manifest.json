@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Clipp – Rabattkoder",
-  "version": "1.0.0",
-  "description": "Hitta och tillämpa rabattkoder automatiskt",
+  "name": "ClippUF - Allting rabattkoder",
+  "version": "0.0.1",
+  "description": "Hitta, lagra och tillämpa rabattkoder automatiskt",
   "permissions": ["activeTab", "storage", "tabs"],
   "action": {
     "default_popup": "popup.html",

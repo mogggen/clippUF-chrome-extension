@@ -21,7 +21,7 @@ const collect_input_elements_without_zip_or_post_attrib = function () {
 const find_candidates = function () {
     INPUT_ELEMENTS = collect_input_elements_without_zip_or_post_attrib();
     let score = [];
-    const POSTFIX_PATTERN = /[^>]*(${POSTFIXES.join("|")})[^>]*/i;
+    const POSTFIX_PATTERN = new RegExp(`[^>]*(${POSTFIXES.join("|")})[^>]*`, "i");
     //const pattern = new RegExp(`<input\\b[^>]*\\b(${PREFIXES.join("|")})\\b[^>]*\\b(${POSTFIXES.join("|")})\\b[^>]*/>`, "i");
     // TODO: use the pattern to find candidates
     INPUT_ELEMENTS.forEach(el => {
@@ -39,9 +39,8 @@ const find_candidates = function () {
         return null;
     }
     if (score.length > 1) {
-        score.forEach(el => {
-            // TODO: see which one matches PREFIX before 
-            FULL_PATTERN = new RegExp(`<input[^>]*(${PREFIXES.join("|")})[^>]*(${POSTFIXES.join("|")})[^>]*/>`, "i");
+        score.forEach(el => { 
+            FULL_PATTERN = new RegExp(`[^>]*(${PREFIXES.join("|")})[^>]*(${POSTFIXES.join("|")})[^>]*/>`, "i");
             if (!FULL_PATTERN.test(el.outerHTML)) {
                 score.remove(el);
             }
