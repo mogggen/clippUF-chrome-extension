@@ -1,6 +1,6 @@
 
 const PREFIXES = [ "add", "aquired", "has", "have", "select", "pick", "choose", "redeem", "ange", "lös in", "mata in", "välj"];
-const POSTFIXES = [ "kampanj", "rabatt", "rebate", "vouche", "campaign", "coupon", "discount", "kupong", "värde", "promo" ];
+const POSTFIXES = [ "kampanj", "rabatt", "rebate", "vouche", "campaign", "code", "coupon", "discount", "kupong", "kod", "värde", "promo" ];
 const POSTFIX_PATTERN = new RegExp(`[^>]*(${POSTFIXES.join("|")})[^>]*`, "i");
 const FULL_PATTERN = new RegExp(`[^>]*(${PREFIXES.join("|")})[^>]*(${POSTFIXES.join("|")})[^>]*/>`, "i");
 
@@ -63,11 +63,13 @@ const blink = function(coupon) {
 
 const do_func = function (code = "WELCOME20") {
     const COUPON_INPUT = find_candidates();
-    if (!COUPON_INPUT) return;
-    //TODO make this be what it says in the popup
-    COUPON_INPUT.value = code;
-
+    if (!COUPON_INPUT || COUPON_INPUT === null) {
+        console.log("it was null");
+        return;
+    }
     blink(COUPON_INPUT);
+
+    find_candidates().value = code;
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

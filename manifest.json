@@ -3,11 +3,12 @@
   "name": "ClippUF - Allting rabattkoder",
   "version": "0.0.1",
   "description": "Hitta, lagra och tillämpa rabattkoder automatiskt",
-  "permissions": ["activeTab", "storage", "tabs"],
+  "permissions": ["activeTab", "scripting", "storage", "tabs"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icon.png"
   },
+  "host_permissions": ["<all_urls>"],
   "icons": {
     "48": "icon.png",
     "128": "icon.png"
@@ -15,7 +16,8 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "run_at": "document_end"
     }
   ]
 }
