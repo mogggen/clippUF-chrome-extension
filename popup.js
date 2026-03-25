@@ -1,7 +1,4 @@
-let MOCK_COUPONS = [
-  { code: "FAMILY20", discount: "20%", description: "Mode för hela familjen", expires: "2025-03-15" },
-  { code: "VÅRREA10", discount: "10%", description: "Vårkampanj på allt", expires: "2025-04-01" },
-];
+let MOCK_COUPONS = [];
 
 let selectedCode = null;
 
