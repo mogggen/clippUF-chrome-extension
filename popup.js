@@ -1,4 +1,4 @@
-const MOCK_COUPONS = [
+let MOCK_COUPONS = [
   { code: "FAMILY20", discount: "20%", description: "Mode för hela familjen", expires: "2025-03-15" },
   { code: "VÅRREA10", discount: "10%", description: "Vårkampanj på allt", expires: "2025-04-01" },
 ];
@@ -6,6 +6,19 @@ const MOCK_COUPONS = [
 let selectedCode = null;
 
 function init() {
+  if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.session) {
+    chrome.storage.session.get(["MOCK_COUPONS"], (result) => {
+      if (result && result.MOCK_COUPONS) {
+        MOCK_COUPONS = result.MOCK_COUPONS;
+      }
+      finishInit();
+    });
+  } else {
+    finishInit();
+  }
+}
+
+function finishInit() {
   detectStore();
   renderCoupons();
   setupAddSection();
@@ -122,6 +135,11 @@ function setupAddSection() {
       description: desc,
       expires: "—",
     });
+
+    if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.session) {
+      chrome.storage.session.set({ MOCK_COUPONS: MOCK_COUPONS });
+    }
+
     codeInput.value = "";
     document.getElementById("newDesc").value = "";
     addBtn.disabled = true;
