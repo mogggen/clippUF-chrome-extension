@@ -1,6 +1,6 @@
 
 const PREFIXES = [ "add", "aquired", "has", "have", "select", "pick", "choose", "redeem", "ange", "lös in", "mata in", "välj"];
-const POSTFIXES = [ "kampanj", "rabatt", "rebate", "vouche", "campaign", "coupon", "discount", "kupong", "värde", "value", "promo" ];
+const POSTFIXES = [ "kampanj", "rabatt", "rebate", "vouche", "campaign", "coupon", "discount", "kupong", "värde", "promo" ];
 const POSTFIX_PATTERN = new RegExp(`[^>]*(${POSTFIXES.join("|")})[^>]*`, "i");
 const FULL_PATTERN = new RegExp(`[^>]*(${PREFIXES.join("|")})[^>]*(${POSTFIXES.join("|")})[^>]*/>`, "i");
 
@@ -72,6 +72,7 @@ const do_func = function (code = "WELCOME20") {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "applyCoupon") {
+        console.log("it recieved the request " + request.code);
         do_func(request.code);
         sendResponse({ status: "success" });
     }
